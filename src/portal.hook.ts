@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { ModalContext } from "./modal.provider";
+import { PortalContext } from "./portal.provider";
 
-export const useModal = () => {
-  const context = useContext(ModalContext);
+export const usePortal = () => {
+  const context = useContext(PortalContext);
 
   if (!context) {
     throw new Error("useModal must be used within a ModalRoot");
