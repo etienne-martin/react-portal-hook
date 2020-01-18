@@ -1,4 +1,5 @@
 import React, { FC, createContext, useState } from "react";
+import ReactDOM from "react-dom";
 import { randomId } from "./modal.util";
 
 interface Modal {
@@ -6,13 +7,14 @@ interface Modal {
 }
 
 interface PrivateModal extends Modal {
-  element: React.ReactElement;
+  element: React.ReactPortal;
   id: string;
 }
 
 interface ShowOptions {
   shouldQueue?: boolean;
   shouldStack?: boolean;
+  appendTo?: Element;
 }
 
 type ShowFunc = (Component: React.ReactElement, options?: ShowOptions) => Modal;
@@ -27,9 +29,8 @@ export const ModalContext = createContext<ModalManager | undefined>(undefined);
 export const ModalRoot: FC = ({ children }) => {
   const [modals, setModals] = useState<PrivateModal[]>([]);
 
-  const show: ShowFunc = (element, options) => {
-    console.log("options", options);
-
+  const show: ShowFunc = (element, options = {}) => {
+    const { appendTo = document.body } = options;
     const modalId = randomId();
 
     const modal: Modal = {
@@ -38,7 +39,7 @@ export const ModalRoot: FC = ({ children }) => {
 
     const privateModal: PrivateModal = {
       ...modal,
-      element,
+      element: ReactDOM.createPortal(element, appendTo),
       id: modalId
     };
 
@@ -54,14 +55,7 @@ export const ModalRoot: FC = ({ children }) => {
   return (
     <ModalContext.Provider value={{ show }}>
       {children}
-      {modals.map(({ element, id }) => (
-        <div
-          key={id}
-          style={{ position: "fixed", top: 0, right: 0, bottom: 0, left: 0 }}
-        >
-          {element}
-        </div>
-      ))}
+      {modals.map(({ element }) => element)}
     </ModalContext.Provider>
   );
 };

@@ -2,3 +2,4 @@
 dist
 yarn-error.log
 node_modules
+tools/link.sh

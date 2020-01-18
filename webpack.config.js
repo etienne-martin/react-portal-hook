@@ -11,7 +11,7 @@ module.exports = (env, argv = {}) => {
     output: {
       filename: "index.js",
       path: __dirname + "/dist",
-      library: "react-hook-modal",
+      library: "react-portal-hook",
       libraryTarget: "umd",
       globalObject: "this",
       umdNamedDefine: true
@@ -19,7 +19,8 @@ module.exports = (env, argv = {}) => {
     resolve: {
       extensions: [".ts", ".tsx", ".js", ".json"],
       alias: {
-        react: path.resolve(__dirname, "./node_modules/react")
+        react: path.resolve(__dirname, "./node_modules/react"),
+        "react-dom": path.resolve(__dirname, "./node_modules/react-dom")
       }
     },
     module: {
@@ -48,6 +49,12 @@ module.exports = (env, argv = {}) => {
         commonjs2: "react",
         amd: "React",
         root: "React"
+      },
+      "react-dom": {
+        commonjs: "react-dom",
+        commonjs2: "react-dom",
+        amd: "react-dom",
+        root: "react-dom"
       }
     },
     plugins: [
