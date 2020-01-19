@@ -1,2 +1,2 @@
 export { PortalProvider } from "./portal.provider";
-export { usePortal } from "./portal.hook";
+export { usePortalManager, usePortal } from "./portal.hook";

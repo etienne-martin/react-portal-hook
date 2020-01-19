@@ -2,7 +2,7 @@ import React, { FC, createContext, useState } from "react";
 import ReactDOM from "react-dom";
 import { randomId } from "./portal.util";
 
-interface Portal {
+export interface Portal {
   close: () => void;
 }
 
@@ -28,9 +28,11 @@ export interface PortalManager {
   open: OpenFunc;
 }
 
-export const PortalContext = createContext<PortalManager | undefined>(
+export const PortalManagerContext = createContext<PortalManager | undefined>(
   undefined
 );
+
+export const PortalContext = createContext<Portal | undefined>(undefined);
 
 export const PortalProvider: FC = ({ children }) => {
   const [portals, setPortals] = useState<PrivatePortal[]>([]);
@@ -49,7 +51,12 @@ export const PortalProvider: FC = ({ children }) => {
 
     const privatePortal: PrivatePortal = {
       ...portal,
-      element: ReactDOM.createPortal(element, appendTo),
+      element: ReactDOM.createPortal(
+        <PortalContext.Provider value={portal}>
+          {element}
+        </PortalContext.Provider>,
+        appendTo
+      ),
       id: portalId
     };
 
@@ -63,9 +70,9 @@ export const PortalProvider: FC = ({ children }) => {
   };
 
   return (
-    <PortalContext.Provider value={{ open }}>
+    <PortalManagerContext.Provider value={{ open }}>
       {children}
       {portals.map(({ element }) => element)}
-    </PortalContext.Provider>
+    </PortalManagerContext.Provider>
   );
 };
