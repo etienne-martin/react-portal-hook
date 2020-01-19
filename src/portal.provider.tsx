@@ -18,7 +18,7 @@ interface OpenOptions {
 }
 
 type OpenFunc = (
-  Component: React.ReactElement,
+  element: ((portal: Portal) => React.ReactElement) | React.ReactElement,
   options?: OpenOptions
 ) => Portal;
 
@@ -28,11 +28,9 @@ export interface PortalManager {
   open: OpenFunc;
 }
 
-export const PortalManagerContext = createContext<PortalManager | undefined>(
+export const PortalContext = createContext<PortalManager | undefined>(
   undefined
 );
-
-export const PortalContext = createContext<Portal | undefined>(undefined);
 
 export const PortalProvider: FC = ({ children }) => {
   const [portals, setPortals] = useState<PrivatePortal[]>([]);
@@ -49,14 +47,12 @@ export const PortalProvider: FC = ({ children }) => {
       close: () => close(portalId)
     };
 
+    const portalElement =
+      typeof element === "function" ? element(portal) : element;
+
     const privatePortal: PrivatePortal = {
       ...portal,
-      element: ReactDOM.createPortal(
-        <PortalContext.Provider value={portal}>
-          {element}
-        </PortalContext.Provider>,
-        appendTo
-      ),
+      element: ReactDOM.createPortal(portalElement, appendTo),
       id: portalId
     };
 
@@ -70,9 +66,9 @@ export const PortalProvider: FC = ({ children }) => {
   };
 
   return (
-    <PortalManagerContext.Provider value={{ open }}>
+    <PortalContext.Provider value={{ open }}>
       {children}
       {portals.map(({ element }) => element)}
-    </PortalManagerContext.Provider>
+    </PortalContext.Provider>
   );
 };
