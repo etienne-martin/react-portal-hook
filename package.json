@@ -1,6 +1,6 @@
 {
   "name": "react-portal-hook",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A flexible react portal library made with hooks",
   "license": "MIT",
   "main": "./dist/index.js",
