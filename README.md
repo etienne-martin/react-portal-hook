@@ -11,11 +11,11 @@ import { PortalProvider, usePortals } from "react-portal-hook";
 
 const Modal = ({ closeModal }) => {
   return (
-    <>
+    <div>
       <h1>Title</h1>
       <p>This is a modal</p>
       <button onClick={closeModal}>Close</button>
-    </>
+    </div>
   );
 };
 
