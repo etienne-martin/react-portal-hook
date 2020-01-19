@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { PortalContext } from "./portal.provider";
 
-export const usePortal = () => {
+export const usePortals = () => {
   const context = useContext(PortalContext);
 
   if (!context) {
