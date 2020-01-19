@@ -6,7 +6,6 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "postinstall": "sh tools/link.sh",
     "dev": "concurrently 'webpack --mode development --watch' 'tsc --watch'",
     "build": "concurrently 'webpack --mode production' 'tsc'",
     "predev": "yarn cleanup",
