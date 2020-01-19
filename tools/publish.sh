@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# $1 is an npm token
 
 # Exit when any command fail
 set -eo pipefail
@@ -22,5 +23,6 @@ PACKAGE_VERSION=$(cat package.json \
 if npm show "$PACKAGE_NAME" version | grep -w "$PACKAGE_VERSION" > /dev/null; then
   echo "Already published!";
 else
+  npm set //registry.npmjs.org/:_authToken=$1
   npm publish;
 fi
