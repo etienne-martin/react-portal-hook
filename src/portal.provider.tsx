@@ -12,9 +12,8 @@ interface PrivatePortal extends Portal {
 }
 
 interface OpenOptions {
-  shouldQueue?: boolean;
-  shouldStack?: boolean;
   appendTo?: Element;
+  onClose?: () => void;
 }
 
 type OpenFunc = (
@@ -36,7 +35,7 @@ export const PortalProvider: FC = ({ children }) => {
   const [portals, setPortals] = useState<PrivatePortal[]>([]);
 
   const open: OpenFunc = (element, options = {}) => {
-    const { appendTo = document.body } = options;
+    const { appendTo = document.body, onClose } = options;
     const portalId = randomId();
 
     if (!appendTo) {
@@ -44,7 +43,10 @@ export const PortalProvider: FC = ({ children }) => {
     }
 
     const portal: Portal = {
-      close: () => close(portalId)
+      close: () => {
+        close(portalId);
+        onClose && onClose();
+      }
     };
 
     const portalElement =
