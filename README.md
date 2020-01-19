@@ -21,7 +21,9 @@ const Modal = ({ closeModal }) => {
 
 const App = () => {
   const portalManager = usePortals();
-  const open = () => portalManager.open(portal => <Modal closeModal={portal.close} />);
+  const open = () => {
+    portalManager.open(portal => <Modal closeModal={portal.close} />);
+  };
 
   return (
     <PortalProvider>

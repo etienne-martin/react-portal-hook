@@ -6,3 +6,5 @@ tsconfig.json
 webpack.config.js
 yarn-error.log
 tools
+.circleci
+.DS_Store
