@@ -19,7 +19,7 @@ interface OpenOptions {
 type OpenFunc = (
   element: ((portal: Portal) => React.ReactElement) | React.ReactElement,
   options?: OpenOptions
-) => Portal;
+) => void;
 
 type CloseFunc = (portalId: string) => void;
 
@@ -59,8 +59,6 @@ export const PortalProvider: FC = ({ children }) => {
     };
 
     setPortals(oldPortals => [...oldPortals, privatePortal]);
-
-    return portal;
   };
 
   const close: CloseFunc = portalId => {
