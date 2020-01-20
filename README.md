@@ -1,6 +1,6 @@
 # react-portal-hook
 
-A flexible react portal library made with hooks
+A small react portal library made with hooks
 
 ## Getting Started
 
@@ -72,7 +72,7 @@ export const Page = () => {
 
 **Example** - Notifications:
 
-You can specify a DOM node in which to render the portals via the `appendTo` option of the `open` method:
+You can specify a DOM node in which to render portals with the `appendTo` option:
 
 [Demo](https://codesandbox.io/s/react-portal-hook-notifications-example-os1b4)
 
