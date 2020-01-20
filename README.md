@@ -16,7 +16,7 @@ npm install react-portal-hook
 
 Wrap your root component with `PortalProvider`.
 
-```js
+```jsx
 // app.jsx
 
 import { PortalProvider } from "react-portal-hook";
@@ -38,7 +38,7 @@ By default, portals will be rendered in `document.body`.
 
 [Demo](https://codesandbox.io/s/react-portal-hook-modal-example-iow95)
 
-```js
+```jsx
 // page.jsx
 
 import { usePortals } from "react-portal-hook";
@@ -76,7 +76,7 @@ You can specify a DOM node in which to render the portals via the `appendTo` opt
 
 [Demo](https://codesandbox.io/s/react-portal-hook-notifications-example-os1b4)
 
-```js
+```jsx
 // layout.jsx
 
 import { usePortals } from "react-portal-hook";
