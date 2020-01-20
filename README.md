@@ -96,6 +96,7 @@ export const Layout = () => {
   const portalManager = usePortals();
 
   const showNotification = () => {
+    // Calling this from anywhere in your app will render a notification
     portalManager.open(
       portal => <Notification closeNotification={portal.close} />,
       {
