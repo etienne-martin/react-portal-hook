@@ -17,6 +17,7 @@ npm install react-portal-hook
 Wrap your root component with `PortalProvider`.
 
 ```jsx
+
 // app.jsx
 
 import { PortalProvider } from "react-portal-hook";
@@ -74,10 +75,11 @@ export const Page = () => {
 
 You can specify a DOM node in which to render portals with the `appendTo` option:
 
-[Demo](https://codesandbox.io/s/react-portal-hook-notifications-example-fzfox)
+[Demo](https://codesandbox.io/s/react-portal-hook-notifications-example-os1b4)
 
 ```jsx
 // layout.jsx
+
 import { useRef } from "react";
 import { usePortals } from "react-portal-hook";
 
