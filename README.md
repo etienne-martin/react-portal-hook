@@ -74,11 +74,11 @@ export const Page = () => {
 
 You can specify a DOM node in which to render portals with the `appendTo` option:
 
-[Demo](https://codesandbox.io/s/react-portal-hook-notifications-example-os1b4)
+[Demo](https://codesandbox.io/s/react-portal-hook-notifications-example-fzfox)
 
 ```jsx
 // layout.jsx
-
+import { useRef } from "react";
 import { usePortals } from "react-portal-hook";
 
 const Notification = ({ closeNotification }) => {
@@ -94,20 +94,21 @@ const Notification = ({ closeNotification }) => {
 
 export const Layout = () => {
   const portalManager = usePortals();
+  const notificationEl = useRef();
 
   const showNotification = () => {
     // Calling this from anywhere in your app will render a notification
     portalManager.open(
       portal => <Notification closeNotification={portal.close} />,
       {
-        appendTo: document.getElementById("notification-holder")
+        appendTo: notificationEl.current
       }
     );
   };
 
   return (
     <div>
-      <div id="notification-holder" />
+      <div id="notification-holder" ref={notificationEl} />
       <button onClick={showNotification}>Show Notification</button>
     </div>
   );
