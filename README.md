@@ -17,6 +17,7 @@ npm install react-portal-hook
 Wrap your root component with `PortalProvider`.
 
 ```jsx
+
 // app.jsx
 
 import { PortalProvider } from "react-portal-hook";
@@ -79,6 +80,7 @@ You can specify a DOM node in which to render portals with the `appendTo` option
 ```jsx
 // layout.jsx
 
+import { useRef } from "react";
 import { usePortals } from "react-portal-hook";
 
 const Notification = ({ closeNotification }) => {
@@ -94,20 +96,21 @@ const Notification = ({ closeNotification }) => {
 
 export const Layout = () => {
   const portalManager = usePortals();
+  const notificationEl = useRef();
 
   const showNotification = () => {
     // Calling this from anywhere in your app will render a notification
     portalManager.open(
       portal => <Notification closeNotification={portal.close} />,
       {
-        appendTo: document.getElementById("notification-holder")
+        appendTo: notificationEl.current
       }
     );
   };
 
   return (
     <div>
-      <div id="notification-holder" />
+      <div id="notification-holder" ref={notificationEl} />
       <button onClick={showNotification}>Show Notification</button>
     </div>
   );
