@@ -6,9 +6,10 @@ export interface Portal {
   close: () => void;
 }
 
-interface PrivatePortal extends Portal {
-  element: React.ReactPortal;
+interface PrivatePortal {
+  element: React.ReactElement;
   id: string;
+  appendTo: Element;
 }
 
 interface OpenOptions {
@@ -53,9 +54,9 @@ export const PortalProvider: FC = ({ children }) => {
       typeof element === "function" ? element(portal) : element;
 
     const privatePortal: PrivatePortal = {
-      ...portal,
-      element: ReactDOM.createPortal(portalElement, appendTo),
-      id: portalId
+      element: portalElement,
+      id: portalId,
+      appendTo
     };
 
     setPortals(oldPortals => [...oldPortals, privatePortal]);
@@ -68,7 +69,11 @@ export const PortalProvider: FC = ({ children }) => {
   return (
     <PortalContext.Provider value={{ open }}>
       {children}
-      {portals.map(({ element }) => element)}
+      {portals.map(({ element, appendTo, id }) => (
+        <React.Fragment key={id}>
+          {ReactDOM.createPortal(element, appendTo)}
+        </React.Fragment>
+      ))}
     </PortalContext.Provider>
   );
 };
