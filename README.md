@@ -1,6 +1,6 @@
 # react-portal-hook
 
-A small react portal library made with hooks
+A small react portal library made with hooks. Allows you to render an indefinite number of portals without having to define them in advance. Useful for event-driven notifications or modals where you don't know how many items will be rendered at a given time.
 
 ## Getting Started
 
