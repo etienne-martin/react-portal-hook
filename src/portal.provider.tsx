@@ -13,6 +13,7 @@ interface PrivatePortal {
 }
 
 interface OpenOptions {
+  id?: string;
   appendTo?: Element;
   onClose?: () => void;
 }
@@ -36,8 +37,14 @@ export const PortalProvider: FC = ({ children }) => {
   const [portals, setPortals] = useState<PrivatePortal[]>([]);
 
   const open: OpenFunc = (element, options = {}) => {
-    const { appendTo = document.body, onClose } = options;
-    const portalId = randomId();
+    const {
+      id: portalId = randomId(),
+      appendTo = document.body,
+      onClose
+    } = options;
+
+    // Skip if the portal already exists
+    if (portals.find(({ id }) => id === portalId)) return;
 
     if (!appendTo) {
       throw new Error("Trying to open a portal in a nonexistent DOM node");
