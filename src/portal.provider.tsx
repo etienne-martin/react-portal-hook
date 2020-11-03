@@ -53,7 +53,7 @@ export const PortalProvider: FC = ({ children }) => {
     const portal: Portal = {
       close: () => {
         close(portalId);
-        onClose && onClose();
+        onClose?.();
       }
     };
 

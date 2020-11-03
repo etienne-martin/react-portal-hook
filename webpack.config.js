@@ -30,7 +30,14 @@ module.exports = (env, argv = {}) => {
           exclude: [/node_modules/],
           use: [
             {
-              loader: "babel-loader"
+              loader: "babel-loader",
+              options: {
+                presets: ["@babel/typescript", ["@babel/preset-env"]],
+                plugins: [
+                  "@babel/plugin-transform-runtime",
+                  "@babel/plugin-proposal-optional-chaining"
+                ]
+              }
             },
             {
               loader: "eslint-loader",
