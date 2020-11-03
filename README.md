@@ -1,6 +1,6 @@
 # react-portal-hook
 
-A small react portal library made with hooks. Allows you to render an indefinite number of portals without having to define them in advance. Useful for event-driven notifications or modals where you don't know how many items will be rendered at a given time.
+A small React portal library made with hooks. Allows you to render an indefinite number of portals without having to define them in advance. Useful for event-driven notifications or modals where you don't know how many items will be rendered at a given time.
 
 ## Getting Started
 
@@ -114,4 +114,42 @@ export const Layout = () => {
     </div>
   );
 };
+```
+
+## API Documentation
+
+#### `portalManager`
+
+```typescript
+interface PortalManager {
+  /**
+   * The react element you want to render in the portal
+   */
+  element: ((portal: Portal) => React.ReactElement) | React.ReactElement;
+  options?: {
+    /**
+    * An ID to avoid duplicate portals
+    */
+    id?: string;
+    /**
+    * A DOM node in which to render the portal
+    */
+    appendTo?: Element;
+    /**
+    * A callback that is fired when the portal closes
+    */
+    onClose?: () => void;
+  };
+}
+```
+
+#### `Portal`
+
+```typescript
+interface Portal {
+  /**
+  * A function to close the Portal
+  */
+  close: () => void;
+}
 ```
